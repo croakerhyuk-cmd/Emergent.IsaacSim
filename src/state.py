@@ -6,29 +6,16 @@ class RobotState(State):
         super().__init__(operation)
         self.robot = robot_state
         self.operation = operation
-        self._env = env
+        self.env = env
+
+    def __getattr__(self, name):
+        """RobotState에 없는 속성/메서드는 환경에 위임한다.
+
+        ``__getattr__``는 일반적인 속성 탐색이 실패했을 때만 호출되므로,
+        RobotState에 정의된 메서드와 인스턴스 속성이 항상 우선한다.
+        """
+        env = object.__getattribute__(self, "env")
+        return getattr(env, name)
     
-    def set_position(self, position):
-        self.env.set_robot_position(position)
-
-    def get_spawn_list(self):
-        return self.env.get_spawn_list()  
-    
-    def exert_torque(self):
-        return self.env.exert_torque()
-
-    def check_collision(self):
-        return self.env.check_collision()
-    
-    def terminate(self):
-        return self.env.terminate()
-
-    def set_target(self, target):
-        return self.env.set_target(target)
-
-    def get_target(self):
-        return self.env.get_target()
-    
-
 
 
