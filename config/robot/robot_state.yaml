@@ -1,0 +1,5 @@
+robot_state : {
+    "model_path" : "../robot_model.yaml",
+    "planner_model" : "~/local_ws/model/best_123.pth",
+    "controller" : "../path_tracker.yaml",
+  }
